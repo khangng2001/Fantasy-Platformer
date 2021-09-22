@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
             temPos.x -= moveSpeed * Time.deltaTime;
             playerAnimation.RunningAnimation(true);
             playerBody.transform.localScale = new Vector3(-1f, 1f, 1f);
-        }else if(Input.GetKey(KeyCode.D)||Input.GetKey(KeyCode.RightArrow))
+        }else if(Input.GetKey(KeyCode.D)||Input.GetKey(KeyCode.RightArrow) )
         {
             temPos.x += moveSpeed * Time.deltaTime;
             playerBody.transform.localScale = Vector3.one;
@@ -56,5 +56,5 @@ public class PlayerMovement : MonoBehaviour
     private void HandleAnimation(){
         playerAnimation.JumpingAnimation(!IsGround());
     }
-
+    
 }
