@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
+    
     private Animator anim;
     private static string RUN_ANIMATION_TAG = "Run";
     private static string JUMP_ANIMATION_TAG = "Jump";

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    
     public float Health;
     public float maxhealth=10;
-    public PlayerHealthBar healthBar;
     private Rigidbody2D playerBody;
     private float moveSpeed = 5f,jumpForce=4f;
     private BoxCollider2D boxCollider2D;
@@ -18,11 +18,11 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         Health = maxhealth;
-        healthBar.setHealth(Health, maxhealth);
         playerBody = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         playerAnimation = GetComponent<PlayerAnimation>();
     }  
+
     private void FixedUpdate() {
         HandleJumping();
         HandleMovement();
