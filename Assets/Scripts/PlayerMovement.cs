@@ -10,9 +10,11 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D playerBody;
     private float moveSpeed = 5f,jumpForce=4f;
     private BoxCollider2D boxCollider2D;
-    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask groundLayer,enemyLayer;
     private PlayerAnimation playerAnimation;
     private Vector3 temPos;
+    [SerializeField] private Transform attackPoint;
+    private float attackRange=0.2f;
     void Start()
     {
         Health = maxhealth;
@@ -20,16 +22,11 @@ public class PlayerMovement : MonoBehaviour
         playerBody = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         playerAnimation = GetComponent<PlayerAnimation>();
-    }
-
-    // private void Update() {
-    //     HandleMovement();
-    //     HandleAnimation();
-    // }
-    
+    }  
     private void FixedUpdate() {
         HandleJumping();
         HandleMovement();
+        HandleAttack();
         HandleAnimation();
     }
     private void HandleMovement(){
@@ -56,6 +53,20 @@ public class PlayerMovement : MonoBehaviour
                 playerBody.velocity = new Vector2(playerBody.velocity.x, jumpForce);
             }
         }
+    }
+     private void HandleAttack(){
+        if(Input.GetKey(KeyCode.J)){
+            Attack();
+        }
+    }
+    private void Attack(){
+        playerAnimation.AttackAnimation();
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange,enemyLayer);
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            Debug.Log("Attack: " + enemy.name);
+        }
+       
     }
     private bool IsGround(){
         return Physics2D.BoxCast(transform.position, boxCollider2D.bounds.size, 0f, Vector2.down,0.1f,groundLayer);

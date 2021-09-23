@@ -7,6 +7,7 @@ public class PlayerAnimation : MonoBehaviour
     private Animator anim;
     private static string RUN_ANIMATION_TAG = "Run";
     private static string JUMP_ANIMATION_TAG = "Jump";
+    private static string ATTACK_ANIMATION_TAG = "Attack_1";
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -16,5 +17,8 @@ public class PlayerAnimation : MonoBehaviour
     }
     public void JumpingAnimation(bool jump){
         anim.SetBool(JUMP_ANIMATION_TAG, jump);
+    }
+     public void AttackAnimation(){
+        anim.SetTrigger(ATTACK_ANIMATION_TAG);
     }
 }
