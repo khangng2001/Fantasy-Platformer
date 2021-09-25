@@ -15,6 +15,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 temPos;
     [SerializeField] private Transform attackPoint;
     private float attackRange=0.2f;
+    private bool DodgeRoll;
+    [SerializeField]
+    private float DodgeSpeed;
+    [SerializeField]
+    private float DodgeTime;
+    private float dir;
     void Start()
     {
         Health = maxhealth;
@@ -28,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
         HandleMovement();
         HandleAttack();
         HandleAnimation();
+        HandleRolling();
     }
     private void HandleMovement(){
          temPos = transform.position;
@@ -36,11 +43,13 @@ public class PlayerMovement : MonoBehaviour
             temPos.x -= moveSpeed * Time.deltaTime;
             playerAnimation.RunningAnimation(true);
             playerBody.transform.localScale = new Vector3(-1f, 1f, 1f);
+            dir =1;
         }else if(Input.GetKey(KeyCode.D)||Input.GetKey(KeyCode.RightArrow) )
         {
             temPos.x += moveSpeed * Time.deltaTime;
             playerBody.transform.localScale = Vector3.one;
             playerAnimation.RunningAnimation(true);
+            dir = 0;
         }
         else{
              playerAnimation.RunningAnimation(false);
@@ -74,5 +83,30 @@ public class PlayerMovement : MonoBehaviour
     private void HandleAnimation(){
         playerAnimation.JumpingAnimation(!IsGround());
     }
-    
+
+    private void HandleRolling()
+    {
+        if(DodgeRoll)
+        {
+            if(dir == 1)
+            {
+                playerBody.AddForce(-transform.position * DodgeSpeed);
+            }
+            if(dir ==0)
+            {
+                playerBody.AddForce(transform.position * DodgeSpeed);
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.C) && !IsRollin.isrolling)
+        {
+            playerAnimation.DodgingAnimation();
+            StartCoroutine(Roll());
+        }
+    }
+    IEnumerator Roll()
+    {
+        DodgeRoll = true;
+        yield return new WaitForSeconds(DodgeTime);
+        DodgeRoll =false;
+    }
 }
