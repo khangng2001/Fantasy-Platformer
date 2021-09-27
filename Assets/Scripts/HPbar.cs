@@ -13,7 +13,6 @@ public class HPbar : MonoBehaviour
         player = FindObjectOfType<PlayerMovement>();
         image.color = Color.green;
     }
-
     // Update is called once per frame
     void Update()
     {

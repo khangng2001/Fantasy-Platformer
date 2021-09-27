@@ -16,10 +16,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform attackPoint;
     private float attackRange=0.2f;
     private bool DodgeRoll;
-    [SerializeField]
-    private float DodgeSpeed;
-    [SerializeField]
-    private float DodgeTime;
+    [SerializeField] private float DodgeSpeed;
+    [SerializeField] private float DodgeTime;
     private float dir;
     void Start()
     {
@@ -97,8 +95,9 @@ public class PlayerMovement : MonoBehaviour
                 playerBody.AddForce(transform.position * DodgeSpeed);
             }
         }
-        if(Input.GetKeyDown(KeyCode.C) && !IsRollin.isrolling)
+        if(Input.GetKeyDown(KeyCode.C) && !IsRollin.isrolling && RollingBar.instance.stamina >=5)
         {
+            RollingBar.instance.useStamina(5);
             playerAnimation.DodgingAnimation();
             StartCoroutine(Roll());
         }
