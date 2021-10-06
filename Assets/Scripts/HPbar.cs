@@ -25,6 +25,5 @@ public class HPbar : MonoBehaviour
         else {
             image.color = Color.green;
         }
-
     }
 }

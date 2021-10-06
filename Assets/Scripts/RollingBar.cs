@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class RollingBar : MonoBehaviour
 {
     private Slider StaminaBar;
-    public Image image;
-    public float stamina;
-    public float maxstamina;
+    public Image BarColor;
+    public float Stamina;
+    public float MaxStamina;
 
     private Coroutine regen=null;
     private WaitForSeconds regenTick = new WaitForSeconds(0.1f);
@@ -18,20 +18,20 @@ public class RollingBar : MonoBehaviour
     }
     private void Start() {
         StaminaBar = GetComponent<Slider>();
-        image.color = Color.blue;
-        stamina = maxstamina;
+        BarColor.color = Color.blue;
+        Stamina = MaxStamina;
     }
     private void Update() {
-        StaminaBar.maxValue = maxstamina;
-        StaminaBar.value= stamina;
+        StaminaBar.maxValue = MaxStamina;
+        StaminaBar.value= Stamina;
     }
     // Update is called once per frame
     public void useStamina(int amount)
     {
-        if(stamina -amount >=0)
+        if(Stamina -amount >=0)
         {
-            stamina-=amount;
-            StaminaBar.value = stamina;
+            Stamina-=amount;
+            StaminaBar.value = Stamina;
 
             if(regen !=null)
             {
@@ -46,10 +46,10 @@ public class RollingBar : MonoBehaviour
     private IEnumerator RegenStamina()
     {
         yield return new WaitForSeconds(2);
-        while (stamina <maxstamina)
+        while (Stamina <MaxStamina)
         {
-            stamina+= 1;
-            StaminaBar.value = stamina;
+            Stamina+= 1;
+            StaminaBar.value = Stamina;
             yield return regenTick;
         }
         regen = null;

@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 temPos;
     [SerializeField] private Transform attackPoint;
     private float attackRange=0.2f;
+    private float attackRate = 2f;
+    private float nextAttackTime=0f;
     private bool DodgeRoll;
     [SerializeField] private float DodgeSpeed;
     [SerializeField] private float DodgeTime;
@@ -32,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
         HandleMovement();
         HandleAttack();
         HandleAnimation();
-        HandleRolling();
+        HandleDodging();
     }
     private void HandleMovement(){
          temPos = transform.position;
@@ -62,9 +64,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
      private void HandleAttack(){
-        if(Input.GetKey(KeyCode.J)){
-            Attack();
-        }
+         if(Time.time > nextAttackTime)
+         {
+             if(Input.GetKey(KeyCode.J))
+             {
+                Attack();
+                nextAttackTime = Time.time + 1f / attackRate;
+            }
+         }
     }
     private void Attack(){
         playerAnimation.AttackAnimation();
@@ -82,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         playerAnimation.JumpingAnimation(!IsGround());
     }
 
-    private void HandleRolling()
+    private void HandleDodging()
     {
         if(DodgeRoll)
         {
@@ -95,14 +102,14 @@ public class PlayerMovement : MonoBehaviour
                 playerBody.AddForce(transform.position * DodgeSpeed);
             }
         }
-        if(Input.GetKeyDown(KeyCode.C) && !IsRollin.isrolling && RollingBar.instance.stamina >=5)
+        if(Input.GetKeyDown(KeyCode.C) && !IsRollin.isrolling && RollingBar.instance.Stamina >=5)
         {
             RollingBar.instance.useStamina(5);
             playerAnimation.DodgingAnimation();
-            StartCoroutine(Roll());
+            StartCoroutine(IsDodge());
         }
     }
-    IEnumerator Roll()
+    IEnumerator IsDodge()
     {
         DodgeRoll = true;
         yield return new WaitForSeconds(DodgeTime);
