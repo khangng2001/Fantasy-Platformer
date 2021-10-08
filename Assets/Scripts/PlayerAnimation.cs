@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     private Animator anim;
+    private static string IDLE_ANIMATION_TAG = "Idle";
     private static string RUN_ANIMATION_TAG = "Run";
     private static string JUMP_ANIMATION_TAG = "Jump";
     private static string ATTACK_ANIMATION_TAG = "Attack_1";
@@ -12,6 +13,9 @@ public class PlayerAnimation : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+    }
+    public void IdleAnimation(bool Idle){
+        anim.SetBool(IDLE_ANIMATION_TAG,Idle);
     }
     public void RunningAnimation(bool run){
         anim.SetBool(RUN_ANIMATION_TAG,run);

@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    
     public float Health;
     public float maxhealth=10;
     private Rigidbody2D playerBody;
-    private float moveSpeed = 5f,jumpForce=4f;
+    public float moveSpeed = 5f,jumpForce=4f;
     private BoxCollider2D boxCollider2D;
     [SerializeField] private LayerMask groundLayer,enemyLayer;
     private PlayerAnimation playerAnimation;
@@ -27,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
         playerBody = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         playerAnimation = GetComponent<PlayerAnimation>();
-    }  
+    }
 
     private void FixedUpdate() {
         HandleJumping();
@@ -38,7 +37,10 @@ public class PlayerMovement : MonoBehaviour
     }
     private void HandleMovement(){
          temPos = transform.position;
-        if(Input.GetKey(KeyCode.A)||Input.GetKey(KeyCode.LeftArrow))
+         if(moveSpeed!=0)
+        {
+         
+        if(Input.GetKey(KeyCode.A) ||Input.GetKey(KeyCode.LeftArrow))
         {
             temPos.x -= moveSpeed * Time.deltaTime;
             playerAnimation.RunningAnimation(true);
@@ -51,7 +53,11 @@ public class PlayerMovement : MonoBehaviour
             playerAnimation.RunningAnimation(true);
             dir = 0;
         }
-        else{
+        else {
+             playerAnimation.RunningAnimation(false);
+        }
+        }
+        else {
              playerAnimation.RunningAnimation(false);
         }
         transform.position = temPos;
