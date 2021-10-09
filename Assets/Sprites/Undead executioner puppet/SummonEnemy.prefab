@@ -196,7 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateDistance: 50
   pathUpdateSeconds: 0.5
-  speed: 200
+  speed: 20
   nextWaypointDistance: 3
   jumpNodeHeightRequirement: 0.8
   jumpModifier: 0.3

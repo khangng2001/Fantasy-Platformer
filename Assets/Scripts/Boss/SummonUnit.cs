@@ -12,18 +12,13 @@ public class SummonUnit : MonoBehaviour
     [Header("Physics")]
     public float speed = 200f;
     public float nextWaypointDistance = 3f;
-    public float jumpNodeHeightRequirement = 0.8f;
-    public float jumpModifier = 0.3f;
-    public float jumpCheckOffset = 0.1f;
 
     [Header("Custom Behavior")]
     public bool followEnabled = true;
-    public bool jumpEnabled = true;
     public bool directionLookEnabled = true;
 
     private Path path;
     private int currentWaypoint = 0;
-    RaycastHit2D isGrounded;
     Seeker seeker;
     Rigidbody2D rb;
 
