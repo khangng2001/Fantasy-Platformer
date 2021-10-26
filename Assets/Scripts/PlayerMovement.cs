@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private bool DodgeRoll;
     [SerializeField] private float DodgeSpeed;
     [SerializeField] private float DodgeTime;
-    private float dir;
+    public float dir;
     void Start()
     {
         Health = maxhealth;
