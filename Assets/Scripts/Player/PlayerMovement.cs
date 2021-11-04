@@ -9,13 +9,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D playerBody;
     public float moveSpeed = 5f,jumpForce=4f;
     private BoxCollider2D boxCollider2D;
-    [SerializeField] private LayerMask groundLayer,enemyLayer;
+    [SerializeField] private LayerMask groundLayer;
     private PlayerAnimation playerAnimation;
     private Vector3 temPos;
-    [SerializeField] private Transform attackPoint;
-    private float attackRange=0.2f;
-    private float attackRate = 2f;
-    private float nextAttackTime=0f;
     private bool DodgeRoll;
     [SerializeField] private float DodgeSpeed;
     [SerializeField] private float DodgeTime;
@@ -30,8 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate() {
         HandleJumping();
-        HandleMovement();
-        HandleAttack();
+        HandleMovement();        
         HandleAnimation();
         HandleDodging();
     }
@@ -69,25 +64,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-     private void HandleAttack(){
-         if(Time.time > nextAttackTime)
-         {
-             if(Input.GetKey(KeyCode.J))
-             {
-                Attack();
-                nextAttackTime = Time.time + 1f / attackRate;
-            }
-         }
-    }
-    private void Attack(){
-        playerAnimation.AttackAnimation();
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange,enemyLayer);
-        foreach (Collider2D enemy in hitEnemies)
-        {
-            Debug.Log("Attack: " + enemy.name);
-        }
-       
-    }
+    
     private bool IsGround(){
         return Physics2D.BoxCast(transform.position, boxCollider2D.bounds.size, 0f, Vector2.down,0.1f,groundLayer);
     }
